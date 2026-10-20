@@ -30,5 +30,14 @@
     "tag": "照片转视频",
     "description": "用一张照片，试着成为一段荒诞追逐戏的主角。从 3 秒人物替换测试开始，让普通照片变成充满趣味的 AI 短视频。",
     "image": "assets/crazyfrog.jpg"
+  },
+  {
+    "url": "https://crazyfrogai.net/",
+    "name": "Crazy Frog AI Video Generator - Ride the Invisible Moped",
+    "description": "Crazy Frog AI video generator: upload one photo and ride the invisible moped while the cop on the hover-bike chases you. 14-second MP4 with the original sound, from $7.90.",
+    "tag": "",
+    "category": "ai",
+    "issue": 1,
+    "image": "assets/project-5a554d446c84dd86.jpg"
   }
 ]
