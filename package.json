@@ -1,0 +1,1 @@
+{"name":"jacob-maker","private":true,"type":"module","scripts":{"test":"node --test scripts/manage.test.mjs","build":"node scripts/manage.mjs build"},"devDependencies":{"playwright":"1.64.1"}}

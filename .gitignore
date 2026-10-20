@@ -1,2 +1,5 @@
 node_modules/
 .qa/
+
+_site/
+publish-error.txt

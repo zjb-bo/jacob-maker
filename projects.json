@@ -1,0 +1,34 @@
+[
+  {
+    "name": "心意房间 ForYouRoom",
+    "url": "https://www.foryouroom.com/",
+    "category": "connection",
+    "tag": "互动礼物",
+    "description": "把照片、音乐和一封专属的信，放进可以走进去的房间。让一次生日祝福，或一句藏在心里的话，变成可分享的惊喜。",
+    "image": "assets/foryouroom.jpg"
+  },
+  {
+    "name": "Sun Moon Rising",
+    "url": "https://sunmoonrisingcalculator.org/",
+    "category": "tool",
+    "tag": "星座探索",
+    "description": "从出生日期、时间和地点出发，探索太阳、月亮与上升星座。无需注册，在浏览器内完成计算，也标明信息不完整时的可能结果。",
+    "image": "assets/sunmoon.jpg"
+  },
+  {
+    "name": "身边 Beside",
+    "url": "https://beside-ours.com/",
+    "category": "connection",
+    "tag": "桌面宠物",
+    "description": "一对住在电脑里的小猫，安静陪着彼此的日常。用一个小动作或一句短消息，让“想你了”轻轻出现在 TA 的桌面。",
+    "image": "assets/beside.jpg"
+  },
+  {
+    "name": "Crazy Frog AI",
+    "url": "https://crazyfrogai.online/",
+    "category": "ai",
+    "tag": "照片转视频",
+    "description": "用一张照片，试着成为一段荒诞追逐戏的主角。从 3 秒人物替换测试开始，让普通照片变成充满趣味的 AI 短视频。",
+    "image": "assets/crazyfrog.jpg"
+  }
+]
