@@ -54,7 +54,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            await github.rest.issues.createComment({...context.repo, issue_number: context.issue.number, body: '作品已发布：https://zjb-bo.github.io/jacob-maker/ 。标题、简介和首页截图已保存到仓库。'});
+            await github.rest.issues.createComment({...context.repo, issue_number: context.issue.number, body: '作品集已更新：https://zjb-bo.github.io/jacob-maker/ 。添加或删除操作已处理完成。'});
             await github.rest.issues.update({...context.repo, issue_number: context.issue.number, state: 'closed'});
       - if: failure() && github.event_name == 'issues'
         uses: actions/github-script@v7

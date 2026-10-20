@@ -34,7 +34,16 @@ export function parseIssue(event, repository) {
   if (event.issue?.user?.login !== owner || event.sender?.login !== owner || event.issue?.pull_request || !event.issue?.title?.startsWith('[作品] ')) throw new Error('只有仓库主人可以发布作品。');
   const match = event.issue.body?.match(/```json\s*([\s\S]*?)\s*```/);
   if (!match) throw new Error('未找到作品数据，请从作品管理页面重新提交。');
-  return {...validate(JSON.parse(match[1])),issue:event.issue.number};
+  const input = JSON.parse(match[1]);
+  if (input?.action === 'delete') {
+    if (typeof input.url !== 'string' || typeof input.image !== 'string' || !(input.issue === null || Number.isSafeInteger(input.issue))) throw new Error('删除数据不完整，请刷新管理页面后重试。');
+    return {action:'delete',url:input.url,image:input.image,targetIssue:input.issue};
+  }
+  if (input?.action !== undefined && input.action !== 'add') throw new Error('未知的作品操作。');
+  return {...validate(input),issue:event.issue.number};
+}
+export function removeProject(projects, request) {
+  return projects.filter(p => !(p.url === request.url && p.image === request.image && (p.issue ?? null) === request.targetIssue));
 }
 export const escapeHtml = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function renderCard(project) {
@@ -56,6 +65,10 @@ async function addProject() {
   const event=await readJson(process.env.GITHUB_EVENT_PATH);
   const project=parseIssue(event,process.env.GITHUB_REPOSITORY);
   const projects=await readJson('projects.json');
+  if (project.action === 'delete') {
+    await fs.writeFile('projects.json',JSON.stringify(removeProject(projects,project),null,2)+'\n');
+    return;
+  }
   if (projects.some(p=>p.issue === project.issue)) return;
   if (projects.some(p=>p.url === project.url)) throw new Error('这个网址已经在作品集中，无需重复添加。');
   const addresses = new Map();
@@ -103,7 +116,7 @@ function publish() {
   git(['config','user.name','github-actions[bot]']);git(['config','user.email','41898282+github-actions[bot]@users.noreply.github.com']);
   git(['add','projects.json','index.html','assets']);
   if(spawnSync('git',['diff','--cached','--quiet']).status===0)return;
-  git(['commit','-m','Add portfolio project']);
+  git(['commit','-m','Update portfolio projects']);
   if(!process.env.GH_TOKEN)throw new Error('缺少仓库写入凭据。');
   git(['push','origin','HEAD:main'],{...process.env,GIT_CONFIG_COUNT:'1',GIT_CONFIG_KEY_0:'http.https://github.com/.extraheader',GIT_CONFIG_VALUE_0:'AUTHORIZATION: basic '+Buffer.from('x-access-token:'+process.env.GH_TOKEN).toString('base64')});
 }
